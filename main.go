@@ -31,9 +31,15 @@ func main() {
 	fmt.Println(input)
 	fmt.Println("-----------------")
 
+	// l.ch = l
+	// l.position = 0
+	// l.readPosition = 1
 	l := lexer.New(input)
 
 	for {
+		// emit tokens
+		// on each iteration
+		// bingo!
 		tok := l.NextToken()
 		fmt.Printf("%+v\n", tok)
 		if tok.Type == token.EOF {

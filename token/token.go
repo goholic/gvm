@@ -61,6 +61,8 @@ var keywords = map[string]TokenType{
 }
 
 // Checker for reserved keyword
+// if reserved will retun the TokenType
+// else IDENT
 func LookUpIdent(ident string) TokenType {
 	if tok, ok := keywords[ident]; ok {
 		return tok

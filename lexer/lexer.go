@@ -53,27 +53,41 @@ func New(input string) *Lexer {
 
 func (l *Lexer) readChar() {
 	// curr + 1 does not exist
-	// we reached the end
+	// if we reached the end
 	if l.readposition >= len(l.input) {
 		l.ch = 0 // EOF
+
+		// if not reached the EOF
 	} else {
+		// current char = chat at readPosition
 		l.ch = l.input[l.readposition]
 	}
 
+	// move the position
 	l.position = l.readposition
+
+	// move the read position
 	l.readposition += 1
 }
 
 func (l *Lexer) readIdentifier() string {
+	// position pointer
+	// readPosition = position + 1
 	position := l.position
+
+	// if letter
+	// keep reading chars
+	// move the l.position
 	for isLetter(l.ch) {
 		l.readChar()
 	}
 
+	// slice out the identifier
 	return l.input[position:l.position]
 }
 
 func (l *Lexer) readNumber() string {
+	// same as read identifier
 	position := l.position
 	for isDigit(l.ch) {
 		l.readChar()
@@ -83,6 +97,7 @@ func (l *Lexer) readNumber() string {
 }
 
 func (l *Lexer) skipWhiteSpace() {
+	// keep eating white space
 	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
 		l.readChar()
 	}
@@ -111,10 +126,14 @@ func (l *Lexer) NextToken() token.Token {
 
 	// TODO:
 	// Eat Spaces, tabs, \n
+
+	// ^ Done
 	l.skipWhiteSpace()
 
 	// TODO:
 	// newToken
+
+	// ^ Done
 	switch l.ch {
 	case '=':
 		tok = newToken(token.ASSIGN, l.ch)
@@ -147,9 +166,12 @@ func (l *Lexer) NextToken() token.Token {
 
 		// TODO:
 		// isLettr
+		// ^ Done
 		if isLetter(l.ch) {
 			// TODO:
 			// l.readIdentifier
+
+			// ^ Done
 			tok.Literal = l.readIdentifier()
 			tok.Type = token.LookUpIdent(tok.Literal)
 			return tok
